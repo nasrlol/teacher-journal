@@ -11,15 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('class', function(Blueprint $table)
-        {
-            $table->id('name');
-            $table->string('name');
-            $table->foreignId('teacher_id');
-            $table->time('start_time');
-            $table->time('end_time');
-
-            // amount of students can be calculated
+        Schema::create('sub_groups', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
         });
     }
 
@@ -28,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::drop('class');
+        Schema::dropIfExists('sub_groups');
     }
 };
