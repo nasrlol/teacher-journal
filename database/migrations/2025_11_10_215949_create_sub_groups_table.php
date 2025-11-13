@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('sub_groups', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('group_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
