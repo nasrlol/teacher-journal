@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('lessons', function (Blueprint $table) {
-            $table->id();
+            $table->autoIncrement('id');
             $table->string('topic');
+            // TODO: add the time the date is taking place
             $table->timestamps();
         });
     }

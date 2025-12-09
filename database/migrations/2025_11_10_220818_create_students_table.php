@@ -16,9 +16,11 @@ return new class extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('last_name');
+            $table->integer('age');
             $table->foreignId(['group_id']);
             $table->foreignId(['class_id']);
             $table->integer('points');
+            $table->integer('enrollement_date');
         });
     }
 

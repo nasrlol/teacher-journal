@@ -10,16 +10,17 @@ class Student extends Model
 
     protected $fillable = [
         'name',
-        'email',
+        'last_name',
         'age',
+        'points',
         'enrollment_date',
     ];
-    
+
     public function lessons()
     {
         return $this->hasMany(Lesson::class);
-    }   
+    }
 
-    // TODO: apparently not needed? why? dont know yet... :-) 
+    // TODO: apparently not needed? why? dont know yet... :-)
     protected $table =  'lessons';
 }

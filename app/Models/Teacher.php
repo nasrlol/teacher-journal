@@ -14,6 +14,22 @@ class Teacher extends Model
 
     protected $table = 'teacher';
 
+    protected $fillable = [
+        'name',
+        'last_name',
+        'email',
+        'password',
+    ]
+
+    protected $fillable = [
+        'password',
+    ]
+
+
+    protected $casts = [
+        'password' => 'hashed';
+    ]
+
     /**
      * @return HasMany
      */

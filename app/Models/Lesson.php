@@ -12,7 +12,8 @@ class Lesson extends Model
 
     protected $fillable = [
         'topic'
+        // TODO: add the time the date is taking place
     ];
 
-    
+
 }
