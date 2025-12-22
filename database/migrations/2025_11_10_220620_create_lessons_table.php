@@ -12,9 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('lessons', function (Blueprint $table) {
-            $table->autoIncrement('id');
+            $table->id();
             $table->string('topic');
-            // TODO: add the time the date is taking place
+            $table->text('description')->nullable();
+            $table->foreignId('teacher_id')->constrained('teachers')->onDelete('cascade');
+            $table->foreignId('group_id')->constrained('groups')->onDelete('cascade');
+            $table->dateTime('scheduled_at')->nullable();
+            $table->integer('duration_minutes')->default(60);
             $table->timestamps();
         });
     }

@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('name');
             $table->string('last_name');
             $table->integer('age');
-            $table->foreignId(['group_id']);
-            $table->foreignId(['class_id']);
-            $table->integer('points');
-            $table->integer('enrollement_date');
+            $table->foreignId('group_id')->constrained('groups')->onDelete('cascade');
+            $table->foreignId('sub_group_id')->nullable()->constrained('sub_groups')->onDelete('set null');
+            $table->integer('points')->default(0);
+            $table->date('enrollment_date')->nullable();
+            $table->timestamps();
         });
     }
 
