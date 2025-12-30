@@ -1,34 +1,32 @@
 <?php
-};
-    }
-        Schema::dropIfExists('lesson_student');
-    {
-    public function down(): void
-     */
-     * Reverse the migrations.
-    /**
 
-    }
-        });
-            $table->unique(['lesson_id', 'student_id']);
-
-            $table->timestamps();
-            $table->integer('score')->nullable();
-            $table->boolean('attendance')->default(false);
-            $table->foreignId('student_id')->constrained()->onDelete('cascade');
-            $table->foreignId('lesson_id')->constrained()->onDelete('cascade');
-            $table->id();
-        Schema::create('lesson_student', function (Blueprint $table) {
-    {
-    public function up(): void
-     */
-     * Run the migrations.
-    /**
-{
-return new class extends Migration
-
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('activity_student', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('lesson_id')->constrained()->onDelete('cascade');
+            $table->foreignId('student_id')->constrained()->onDelete('cascade');
+            $table->timestamps();
+
+            $table->unique(['activity_id', 'student_id']);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('activity_student');
+    }
+};
 
