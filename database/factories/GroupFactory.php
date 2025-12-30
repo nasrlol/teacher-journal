@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Group;
+use App\Models\Teacher;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +11,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class GroupFactory extends Factory
 {
+    protected $model = Group::class;
+
     /**
      * Define the model's default state.
      *
@@ -17,7 +21,8 @@ class GroupFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->randomElement(['Class A', 'Class B', 'Class C', 'Class D']) . ' - ' . fake()->word(),
+            'teacher_id' => Teacher::factory(),
         ];
     }
 }
