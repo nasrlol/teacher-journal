@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Group;
+use App\Models\SubGroup;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +11,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class SubGroupFactory extends Factory
 {
+    protected $model = SubGroup::class;
+
     /**
      * Define the model's default state.
      *
@@ -17,6 +21,8 @@ class SubGroupFactory extends Factory
     public function definition(): array
     {
         return [
+            'name' => 'Sub-group ' . fake()->randomElement(['Alpha', 'Beta', 'Gamma', 'Delta']),
+            'group_id' => Group::factory(),
         ];
     }
 }
