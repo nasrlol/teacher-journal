@@ -18,7 +18,7 @@ class GroupSeeder extends Seeder
 
         foreach ($teachers as $teacher) {
             Group::factory()->count(2)->create([
-                'teacher_id' => $teacher->id,
+                /* 'teacher_id' => $teacher->id, */
             ]);
         }
     }

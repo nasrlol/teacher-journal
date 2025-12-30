@@ -14,13 +14,12 @@ class LessonSeeder extends Seeder
      */
     public function run(): void
     {
-        $groups = Group::with('teacher')->get();
+        /* $groups = Group::with('teacher')->get(); */
 
-        foreach ($groups as $group) {
-            Lesson::factory()->count(5)->create([
-                'group_id' => $group->id,
-                'teacher_id' => $group->teacher_id,
-            ]);
-        }
+        /* foreach ($groups as $group) { */
+        /*     Lesson::factory()->count(5)->create([ */
+        /*         'group_id' => $group->id, */
+        /*         /* 'teacher_id' => $group->teacher_id, */
+        /*     ]); */
     }
 }

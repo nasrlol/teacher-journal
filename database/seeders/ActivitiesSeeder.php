@@ -19,7 +19,7 @@ class ActivitiesSeeder extends Seeder
         foreach ($groups as $group) {
             Activity::factory()->count(3)->create([
                 'group_id' => $group->id,
-                'teacher_id' => $group->teacher_id,
+                /* 'teacher_id' => $group->teacher_id, */
             ]);
         }
     }

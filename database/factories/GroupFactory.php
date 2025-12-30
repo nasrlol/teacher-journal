@@ -22,7 +22,7 @@ class GroupFactory extends Factory
     {
         return [
             'name' => fake()->randomElement(['Class A', 'Class B', 'Class C', 'Class D']) . ' - ' . fake()->word(),
-            'teacher_id' => Teacher::factory(),
+            /* 'teacher_id' => Teacher::factory(), */
         ];
     }
 }
