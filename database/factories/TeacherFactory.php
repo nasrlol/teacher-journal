@@ -2,13 +2,17 @@
 
 namespace Database\Factories;
 
+use App\Models\Teacher;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Teacher>
  */
 class TeacherFactory extends Factory
 {
+    protected $model = Teacher::class;
+
     /**
      * Define the model's default state.
      *
@@ -17,7 +21,10 @@ class TeacherFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->firstName(),
+            'last_name' => fake()->lastName(),
+            'email' => fake()->unique()->safeEmail(),
+            'password' => Hash::make('password'),
         ];
     }
 }

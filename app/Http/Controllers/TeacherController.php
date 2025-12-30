@@ -2,38 +2,78 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Teacher;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Hash;
 
 class TeacherController extends Controller
 {
-
-    public function index()
+    /**
+     * Display a listing of teachers.
+     */
+    public function index(): JsonResponse
     {
-        // TODO: get all admins
+        $teachers = Teacher::with('groups')->get();
+        return response()->json($teachers);
     }
 
-    public function store()
+    /**
+     * Store a newly created teacher.
+     */
+    public function store(Request $request): JsonResponse
     {
-        // TODO: save one admin
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|unique:teachers,email',
+            'password' => 'required|string|min:8',
+        ]);
+
+        $validated['password'] = Hash::make($validated['password']);
+
+        $teacher = Teacher::create($validated);
+
+        return response()->json($teacher, 201);
     }
 
-    public function show()
+    /**
+     * Display the specified teacher.
+     */
+    public function show(Teacher $teacher): JsonResponse
     {
-        // TODO: get one admin
-
+        return response()->json($teacher->load(['groups', 'lessons']));
     }
 
-    public function update()
+    /**
+     * Update the specified teacher.
+     */
+    public function update(Request $request, Teacher $teacher): JsonResponse
     {
+        $validated = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'last_name' => 'sometimes|required|string|max:255',
+            'email' => 'sometimes|required|email|unique:teachers,email,' . $teacher->id,
+            'password' => 'sometimes|required|string|min:8',
+        ]);
 
-        // TODO: update admin
+        if (isset($validated['password'])) {
+            $validated['password'] = Hash::make($validated['password']);
+        }
 
+        $teacher->update($validated);
+
+        return response()->json($teacher);
     }
 
-    public function destroy()
+    /**
+     * Remove the specified teacher.
+     */
+    public function destroy(Teacher $teacher): JsonResponse
     {
+        $teacher->delete();
 
-        // TODO: delete admin
-
+        return response()->json(null, 204);
     }
 
 }
