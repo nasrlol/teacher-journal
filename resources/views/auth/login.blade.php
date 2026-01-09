@@ -28,10 +28,16 @@
         <label for="password">Password</label>
         <input type="password" id="password" name="password" required>
 
+        <div class="remember-me">
+            <input type="checkbox" id="remember" name="remember" value="1">
+            <label for="remember">Remember me</label>
+        </div>
+
         <button type="submit">Login</button>
     </form>
 
     <p>Don't have an account? <a href="{{ route('register') }}">Register</a></p>
+    <p><a href="{{ route('faq') }}">FAQ</a> | <a href="{{ route('contact') }}">Contact</a></p>
 </div>
 </body>
 </html>

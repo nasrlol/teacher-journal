@@ -22,11 +22,9 @@
 
     <form method="POST" action="{{ route('register') }}">
         @csrf
-        <label for="name">First Name</label>
+        <label for="name">Name</label>
         <input type="text" id="name" name="name" value="{{ old('name') }}" required>
 
-        <label for="last_name">Last Name</label>
-        <input type="text" id="last_name" name="last_name" value="{{ old('last_name') }}" required>
 
         <label for="email">Email</label>
         <input type="email" id="email" name="email" value="{{ old('email') }}" required>
@@ -41,6 +39,7 @@
     </form>
 
     <p>Already have an account? <a href="{{ route('login') }}">Login</a></p>
+    <p><a href="{{ route('faq') }}">FAQ</a> | <a href="{{ route('contact') }}">Contact</a></p>
 </div>
 </body>
 </html>
