@@ -1,0 +1,63 @@
+/* Dashboard specific styles */
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2em;
+}
+
+.dashboard-date {
+    color: #666;
+}
+
+/* Statistics */
+.stats-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1em;
+    margin-bottom: 2em;
+    list-style: none;
+    padding: 0;
+}
+
+.stats-list li {
+    background: white;
+    padding: 1em;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Sections */
+.dashboard-section {
+    background: white;
+    padding: 1.5em;
+    border-radius: 8px;
+    margin-bottom: 1.5em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-section h2 {
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid #eee;
+}
+
+/* Items list */
+.dashboard-item {
+    padding: 0.75em 0;
+    border-bottom: 1px solid #eee;
+}
+
+.dashboard-item:last-child {
+    border-bottom: none;
+}
+
+.points-badge {
+    background: #28a745;
+    color: white;
+    padding: 0.25em 0.5em;
+    border-radius: 4px;
+    font-size: 0.875em;
+}
+

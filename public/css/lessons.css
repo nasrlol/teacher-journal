@@ -1,0 +1,118 @@
+/* Lessons pages styles */
+
+.lessons-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5em;
+}
+
+/* Filter form */
+.lessons-filter {
+    background: white;
+    padding: 1em;
+    border-radius: 8px;
+    margin-bottom: 1.5em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.lessons-filter form {
+    display: flex;
+    gap: 1em;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    margin: 0;
+}
+
+.lessons-filter label {
+    margin-bottom: 0.25em;
+}
+
+.lessons-filter input,
+.lessons-filter select {
+    margin-bottom: 0;
+    width: auto;
+    min-width: 150px;
+}
+
+/* Lesson card */
+.lesson-card {
+    background: white;
+    padding: 1.5em;
+    border-radius: 8px;
+    margin-bottom: 1em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.lesson-description {
+    color: #666;
+    margin: 1em 0;
+}
+
+.lesson-details {
+    margin: 1.5em 0;
+}
+
+.lesson-details p {
+    margin: 0.5em 0;
+}
+
+/* Students section */
+.lesson-students {
+    margin-top: 1.5em;
+}
+
+.lesson-student {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75em 0;
+    border-bottom: 1px solid #eee;
+}
+
+.lesson-student:last-child {
+    border-bottom: none;
+}
+
+.lesson-student-info small {
+    display: block;
+    color: #666;
+}
+
+.lesson-student-status {
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+}
+
+.status-present {
+    color: #28a745;
+}
+
+.status-absent {
+    color: #dc3545;
+}
+
+.score-badge {
+    background: #0066cc;
+    color: white;
+    padding: 0.25em 0.5em;
+    border-radius: 4px;
+    font-size: 0.875em;
+}
+
+/* Attendance modal */
+.attendance-options {
+    margin: 1em 0;
+}
+
+.attendance-options label {
+    display: inline;
+    margin-left: 0.5em;
+    font-weight: normal;
+}
+
+.attendance-options div {
+    margin: 0.5em 0;
+}
+

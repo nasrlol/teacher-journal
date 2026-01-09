@@ -1,0 +1,56 @@
+/* Teachers pages styles */
+
+.teachers-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5em;
+}
+
+/* Teacher card */
+.teacher-card {
+    background: white;
+    padding: 1.5em;
+    border-radius: 8px;
+    margin-bottom: 1em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.teacher-info {
+    margin: 1em 0;
+}
+
+.teacher-email {
+    color: #666;
+    margin-bottom: 1em;
+}
+
+/* Sections */
+.teacher-section {
+    margin-top: 2em;
+}
+
+.teacher-section h2 {
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid #eee;
+}
+
+/* Group/Lesson items */
+.teacher-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75em 0;
+    border-bottom: 1px solid #eee;
+}
+
+.teacher-item:last-child {
+    border-bottom: none;
+}
+
+.teacher-item-info small {
+    display: block;
+    color: #666;
+}
+
