@@ -12,40 +12,46 @@
 </head>
 
 <body>
-    <nav>
-        <a href="{{ route('dashboard') }}">Teacher Journal</a>
+<nav>
+    <a href="{{ route('dashboard') }}">Teacher Journal</a>
+    <ul>
+        <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+        <li><a href="{{ route('teachers.index') }}">Teachers</a></li>
+        <li><a href="{{ route('groups.index') }}">Groups</a></li>
+        <li><a href="{{ route('sub-groups.index') }}">Sub Groups</a></li>
+        <li><a href="{{ route('students.index') }}">Students</a></li>
+        <li><a href="{{ route('lessons.index') }}">Lessons</a></li>
+        <li><a href="{{ route('activities.index') }}">Activities</a></li>
+        <li>
+            <form method="POST" action="{{ route('logout') }}" style="display:inline">
+                @csrf
+                <button type="submit">Logout</button>
+            </form>
+        </li>
+    </ul>
+</nav>
+
+<main>
+    @if(session('success'))
+        <p>{{ session('success') }}</p>
+    @endif
+
+    @if(session('error'))
+        <p>{{ session('error') }}</p>
+    @endif
+
+    @if($errors->any())
         <ul>
-            <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
-            <li><a href="{{ route('teachers.index') }}">Teachers</a></li>
-            <li><a href="{{ route('groups.index') }}">Groups</a></li>
-            <li><a href="{{ route('sub-groups.index') }}">Sub Groups</a></li>
-            <li><a href="{{ route('students.index') }}">Students</a></li>
-            <li><a href="{{ route('lessons.index') }}">Lessons</a></li>
-            <li><a href="{{ route('activities.index') }}">Activities</a></li>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
         </ul>
-    </nav>
+    @endif
 
-    <main>
-        @if(session('success'))
-            <p>{{ session('success') }}</p>
-        @endif
+    @yield('content')
+</main>
 
-        @if(session('error'))
-            <p>{{ session('error') }}</p>
-        @endif
-
-        @if($errors->any())
-            <ul>
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        @endif
-
-        @yield('content')
-    </main>
-
-    @stack('scripts')
+@stack('scripts')
 </body>
 
 </html>
