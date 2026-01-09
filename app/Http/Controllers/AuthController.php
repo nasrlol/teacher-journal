@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
@@ -28,11 +29,12 @@ class AuthController extends Controller
         $validated = $request->validate([
             'email' => 'required|email',
             'password' => 'required|string',
+            'remember' => 'nullable|boolean',
         ]);
 
-        $teacher = Teacher::where('email', $validated['email'])->first();
+        $user = User::where('email', $validated['email'])->first();
 
-        if (!$teacher || !Hash::check($validated['password'], $teacher->password)) {
+        if (!$user || !Hash::check($validated['password'], $user->password)) {
             if ($request->expectsJson()) {
                 return response()->json(['message' => 'Invalid credentials'], 401);
             }
@@ -41,21 +43,27 @@ class AuthController extends Controller
 
         // Generate token
         $token = Str::random(60);
-        $teacher->api_token = hash('sha256', $token);
-        $teacher->save();
+        $user->api_token = hash('sha256', $token);
+        $user->save();
 
         if ($request->expectsJson()) {
             return response()->json([
                 'message' => 'Login successful',
                 'token' => $token,
-                'teacher' => $teacher,
+                'user' => $user,
             ]);
         }
 
         // Store token in session for web
-        session(['api_token' => $token, 'teacher_id' => $teacher->id]);
+        session(['api_token' => $token, 'user_id' => $user->id]);
 
-        return redirect()->route('dashboard');
+        // Handle "Remember me"
+        $response = redirect()->route('dashboard');
+        if ($request->boolean('remember')) {
+            $response->withCookie(cookie('remember_token', $token, 60 * 24 * 30)); // 30 days
+        }
+
+        return $response;
     }
 
     /**
@@ -73,8 +81,7 @@ class AuthController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|email|unique:teachers,email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
@@ -84,17 +91,17 @@ class AuthController extends Controller
         $token = Str::random(60);
         $validated['api_token'] = hash('sha256', $token);
 
-        $teacher = Teacher::create($validated);
+        $user = User::create($validated);
 
         if ($request->expectsJson()) {
             return response()->json([
                 'message' => 'Registration successful',
                 'token' => $token,
-                'teacher' => $teacher,
+                'user' => $user,
             ], 201);
         }
 
-        session(['api_token' => $token, 'teacher_id' => $teacher->id]);
+        session(['api_token' => $token, 'user_id' => $user->id]);
 
         return redirect()->route('dashboard');
     }
@@ -104,29 +111,29 @@ class AuthController extends Controller
      */
     public function logout(Request $request): JsonResponse|RedirectResponse
     {
-        $teacher = $request->attributes->get('teacher');
+        $user = $request->attributes->get('user');
 
-        if ($teacher) {
-            $teacher->api_token = null;
-            $teacher->save();
+        if ($user) {
+            $user->api_token = null;
+            $user->save();
         }
 
         if ($request->expectsJson()) {
             return response()->json(['message' => 'Logged out successfully']);
         }
 
-        session()->forget(['api_token', 'teacher_id']);
+        session()->forget(['api_token', 'user_id']);
 
-        return redirect()->route('login');
+        return redirect()->route('login')->withCookie(Cookie::forget('remember_token'));
     }
 
     /**
-     * Get current authenticated teacher.
+     * Get current authenticated user.
      */
     public function me(Request $request): JsonResponse
     {
-        $teacher = $request->attributes->get('teacher');
-        return response()->json($teacher);
+        $user = $request->attributes->get('user');
+        return response()->json($user);
     }
 }
 

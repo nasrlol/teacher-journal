@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Teacher;
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,6 +26,13 @@ class TokenAuth
             $token = session('api_token');
         }
 
+        // Check "Remember me" cookie
+        if (!$token && $request->cookie('remember_token')) {
+            $token = $request->cookie('remember_token');
+            // Restore session from remember token
+            session(['api_token' => $token]);
+        }
+
         if (!$token) {
             if ($request->expectsJson()) {
                 return response()->json(['message' => 'Unauthorized'], 401);
@@ -33,18 +40,18 @@ class TokenAuth
             return redirect()->route('login');
         }
 
-        $teacher = Teacher::where('api_token', hash('sha256', $token))->first();
+        $user = User::where('api_token', hash('sha256', $token))->first();
 
-        if (!$teacher) {
+        if (!$user) {
             if ($request->expectsJson()) {
                 return response()->json(['message' => 'Invalid token'], 401);
             }
-            session()->forget(['api_token', 'teacher_id']);
+            session()->forget(['api_token', 'user_id']);
             return redirect()->route('login');
         }
 
-        // Store teacher in request for later use
-        $request->attributes->set('teacher', $teacher);
+        // Store user in request for later use
+        $request->attributes->set('user', $user);
 
         return $next($request);
     }
