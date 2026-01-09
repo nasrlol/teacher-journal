@@ -2,6 +2,10 @@
 
 @section('title', 'Activities - Teacher Journal')
 
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/activities.css') }}">
+@endpush
+
 @section('content')
 <h1>Activities</h1>
 <a href="{{ route('activities.create') }}">Add Activity</a>
