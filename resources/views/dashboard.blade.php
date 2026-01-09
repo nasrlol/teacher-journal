@@ -36,7 +36,7 @@
     </div>
 
     <div class="dashboard-section news-section">
-        <h2>📰 Latest News - New Lessons</h2>
+        <h2>Latest News - New Lessons</h2>
         <div class="news-grid">
             @forelse($newsLessons as $lesson)
                 <article class="news-card">
@@ -76,7 +76,7 @@
 
     <div class="dashboard-row">
         <div class="dashboard-section">
-            <h2>📅 Upcoming Lessons</h2>
+            <h2>Upcoming Lessons</h2>
             @forelse($recentLessons as $lesson)
                 <div class="dashboard-item">
                     <strong>{{ $lesson->topic }}</strong>
@@ -94,7 +94,7 @@
         </div>
 
         <div class="dashboard-section">
-            <h2>🏆 Top Students by Points</h2>
+            <h2>Top Students by Points</h2>
             @forelse($topStudents as $student)
                 <div class="dashboard-item">
                     <strong>{{ $student->name }} {{ $student->last_name }}</strong>
