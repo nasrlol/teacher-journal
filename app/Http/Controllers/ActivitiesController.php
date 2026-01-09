@@ -3,38 +3,62 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
+use App\Models\Teacher;
+use App\Models\Group;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class ActivitiesController extends Controller
 {
     /**
      * Display a listing of activities.
      */
-    public function index(Request $request): JsonResponse
+    public function index(Request $request): View|JsonResponse
     {
         $query = Activity::with(['teacher', 'group']);
 
-        if ($request->has('teacher_id')) {
+        if ($request->has('teacher_id') && $request->teacher_id) {
             $query->where('teacher_id', $request->teacher_id);
         }
 
-        if ($request->has('group_id')) {
+        if ($request->has('group_id') && $request->group_id) {
             $query->where('group_id', $request->group_id);
         }
 
-        if ($request->has('date')) {
+        if ($request->has('date') && $request->date) {
             $query->whereDate('date', $request->date);
         }
 
         $activities = $query->orderBy('date', 'desc')->get();
-        return response()->json($activities);
+
+        if ($request->expectsJson()) {
+            return response()->json($activities);
+        }
+
+        $groups = Group::pluck('name', 'id');
+        return view('activities.index', compact('activities', 'groups'));
+    }
+
+    /**
+     * Show the form for creating a new activity.
+     */
+    public function create(): View
+    {
+        $groups = Group::pluck('name', 'id');
+        $teachers = Teacher::all()->mapWithKeys(function ($teacher) {
+            return [$teacher->id => $teacher->name . ' ' . $teacher->last_name];
+        });
+
+        return view('activities.create', compact('groups', 'teachers'));
     }
 
     /**
      * Store a newly created activity.
      */
-    public function store(Request $request): JsonResponse
+    public function store(Request $request): JsonResponse|RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -46,21 +70,45 @@ class ActivitiesController extends Controller
 
         $activity = Activity::create($validated);
 
-        return response()->json($activity->load(['teacher', 'group']), 201);
+        if ($request->expectsJson()) {
+            return response()->json($activity->load(['teacher', 'group']), 201);
+        }
+
+        return redirect()->route('activities.index')->with('success', 'Activity created successfully.');
     }
 
     /**
      * Display the specified activity.
      */
-    public function show(Activity $activity): JsonResponse
+    public function show(Request $request, Activity $activity): View|JsonResponse
     {
-        return response()->json($activity->load(['teacher', 'group', 'students']));
+        $activity->load(['teacher', 'group', 'students']);
+
+        if ($request->expectsJson()) {
+            return response()->json($activity);
+        }
+
+        $availableStudents = Student::with('group')->get();
+        return view('activities.show', compact('activity', 'availableStudents'));
+    }
+
+    /**
+     * Show the form for editing the specified activity.
+     */
+    public function edit(Activity $activity): View
+    {
+        $groups = Group::pluck('name', 'id');
+        $teachers = Teacher::all()->mapWithKeys(function ($teacher) {
+            return [$teacher->id => $teacher->name . ' ' . $teacher->last_name];
+        });
+
+        return view('activities.edit', compact('activity', 'groups', 'teachers'));
     }
 
     /**
      * Update the specified activity.
      */
-    public function update(Request $request, Activity $activity): JsonResponse
+    public function update(Request $request, Activity $activity): JsonResponse|RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',
@@ -72,42 +120,54 @@ class ActivitiesController extends Controller
 
         $activity->update($validated);
 
-        return response()->json($activity->load(['teacher', 'group']));
+        if ($request->expectsJson()) {
+            return response()->json($activity->load(['teacher', 'group']));
+        }
+
+        return redirect()->route('activities.index')->with('success', 'Activity updated successfully.');
     }
 
     /**
      * Remove the specified activity.
      */
-    public function destroy(Activity $activity): JsonResponse
+    public function destroy(Request $request, Activity $activity): JsonResponse|RedirectResponse
     {
         $activity->delete();
 
-        return response()->json(null, 204);
+        if ($request->expectsJson()) {
+            return response()->json(null, 204);
+        }
+
+        return redirect()->route('activities.index')->with('success', 'Activity deleted successfully.');
     }
 
     /**
      * Attach students to an activity.
      */
-    public function attachStudents(Request $request, Activity $activity): JsonResponse
+    public function attachStudents(Request $request, Activity $activity): JsonResponse|RedirectResponse
     {
         $validated = $request->validate([
             'student_ids' => 'required|array',
             'student_ids.*' => 'exists:students,id',
         ]);
 
-        $activity->students()->syncWithoutDetaching($validated['student_ids']);
+        $activity->students()->sync($validated['student_ids']);
 
-        return response()->json($activity->load('students'));
+        if ($request->expectsJson()) {
+            return response()->json($activity->load('students'));
+        }
+
+        return redirect()->back()->with('success', 'Students attached successfully.');
     }
 
     /**
      * Record score for a student in an activity.
      */
-    public function recordScore(Request $request, Activity $activity): JsonResponse
+    public function recordScore(Request $request, Activity $activity): JsonResponse|RedirectResponse
     {
         $validated = $request->validate([
             'student_id' => 'required|exists:students,id',
-            'score' => 'nullable|integer|min:0|max:100',
+            'score' => 'nullable|integer|min:0',
             'notes' => 'nullable|string',
         ]);
 
@@ -116,7 +176,11 @@ class ActivitiesController extends Controller
             'notes' => $validated['notes'] ?? null,
         ]);
 
-        return response()->json($activity->load('students'));
+        if ($request->expectsJson()) {
+            return response()->json($activity->load('students'));
+        }
+
+        return redirect()->back()->with('success', 'Score recorded successfully.');
     }
 
     /**
