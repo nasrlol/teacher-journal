@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Teacher;
 use App\Models\Group;
-use App\Models\Student;
 use App\Models\Lesson;
+use App\Models\Student;
+use App\Models\Teacher;
 
 class DashboardController extends Controller
 {
@@ -23,6 +23,10 @@ class DashboardController extends Controller
             'topStudents' => Student::with('group')
                 ->orderBy('points', 'desc')
                 ->limit(5)
+                ->get(),
+            'newsLessons' => Lesson::with(['group', 'teacher'])
+                ->orderBy('created_at', 'desc')
+                ->limit(6)
                 ->get(),
         ]);
     }
