@@ -1,179 +1,183 @@
 /* Common styles shared across all pages */
-}
-    overflow-y: auto;
-    max-height: 80vh;
-    width: 90%;
-    max-width: 500px;
-    border-radius: 8px;
-    padding: 2em;
-    background: white;
-.modal-content {
 
+* {
+    box-sizing: border-box;
 }
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    background: rgba(0, 0, 0, 0.5);
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
-    position: fixed;
-.modal {
-/* Modal */
 
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
 }
-    margin-bottom: 1em;
-    border-radius: 4px;
-    padding: 0.75em;
-    background: #f8d7da;
-    color: #dc3545;
-.error {
 
+a {
+    color: #0066cc;
+    text-decoration: none;
 }
-    margin-bottom: 1em;
-    border-radius: 4px;
-    padding: 0.75em;
-    background: #d4edda;
-    color: #28a745;
-.success {
-/* Messages */
 
+a:hover {
+    text-decoration: underline;
 }
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    color: #222;
+}
+
+p {
     margin: 0.5em 0;
-li {
-
 }
-    padding-left: 1.5em;
-ul {
-/* Lists */
 
+small {
+    color: #666;
 }
-    background-color: #f9f9f9;
-tr:hover {
 
-}
+strong {
     font-weight: 600;
-    background-color: #f8f8f8;
-th {
-
 }
-    border-bottom: 1px solid #ddd;
-    text-align: left;
-    padding: 0.75em;
-th, td {
 
-}
-    background: white;
-    margin: 1em 0;
-    border-collapse: collapse;
-    width: 100%;
-table {
-/* Tables */
-
-}
-    background-color: #555;
-button[type="button"]:hover {
-
-}
-    color: white;
-    background-color: #666;
-button[type="button"] {
-
-}
-    background-color: #0055aa;
-button[type="submit"]:hover {
-
-}
-    color: white;
-    background-color: #0066cc;
-button[type="submit"] {
-
-}
-    font-size: 1em;
-    cursor: pointer;
-    border-radius: 4px;
-    border: none;
-    padding: 0.5em 1em;
-button {
-
-}
-    resize: vertical;
-    min-height: 100px;
-textarea {
-
-}
-    border-color: #0066cc;
-    outline: none;
-textarea:focus {
-select:focus,
-input:focus,
-
-}
-    font-size: 1em;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    margin-bottom: 1em;
-    padding: 0.5em;
-    width: 100%;
-textarea {
-select,
-input[type="datetime-local"],
-input[type="date"],
-input[type="number"],
-input[type="password"],
-input[type="email"],
-input[type="text"],
-
-}
-    font-weight: 500;
-    margin-bottom: 0.25em;
-    display: block;
-label {
-
-}
-    margin: 1em 0;
-form {
 /* Forms */
 
+form {
+    margin: 1em 0;
 }
+
+label {
+    display: block;
+    margin-bottom: 0.25em;
+    font-weight: 500;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="datetime-local"],
+select,
+textarea {
+    width: 100%;
+    padding: 0.5em;
+    margin-bottom: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #0066cc;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+button {
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+button[type="submit"] {
+    background-color: #0066cc;
+    color: white;
+}
+
+button[type="submit"]:hover {
+    background-color: #0055aa;
+}
+
+button[type="button"] {
+    background-color: #666;
+    color: white;
+}
+
+button[type="button"]:hover {
+    background-color: #555;
+}
+
+/* Tables */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+    background: white;
+}
+
+th, td {
+    padding: 0.75em;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f8f8f8;
     font-weight: 600;
-strong {
-
 }
-    color: #666;
-small {
 
+tr:hover {
+    background-color: #f9f9f9;
 }
+
+/* Lists */
+
+ul {
+    padding-left: 1.5em;
+}
+
+li {
     margin: 0.5em 0;
-p {
-
 }
-    color: #222;
-    margin-top: 0;
-h1, h2, h3, h4, h5, h6 {
 
+/* Messages */
+
+.success {
+    color: #28a745;
+    background: #d4edda;
+    padding: 0.75em;
+    border-radius: 4px;
+    margin-bottom: 1em;
 }
-    text-decoration: underline;
-a:hover {
 
+.error {
+    color: #dc3545;
+    background: #f8d7da;
+    padding: 0.75em;
+    border-radius: 4px;
+    margin-bottom: 1em;
 }
-    text-decoration: none;
-    color: #0066cc;
-a {
 
+/* Modal */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
 }
-    color: #333;
-    background-color: #f5f5f5;
-    padding: 0;
-    margin: 0;
-    line-height: 1.6;
-    font-family: system-ui, -apple-system, sans-serif;
-body {
 
+.modal-content {
+    background: white;
+    padding: 2em;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
 }
-    box-sizing: border-box;
-* {
-
-
