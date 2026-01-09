@@ -1,0 +1,97 @@
+/* Styles for FAQ and Contact pages */
+
+.page-container {
+    max-width: 800px;
+    margin: 2em auto;
+    padding: 2em;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.page-container h2 {
+    margin-bottom: 0.5em;
+    color: #333;
+}
+
+.page-container > p {
+    color: #666;
+    margin-bottom: 2em;
+}
+
+/* FAQ styles */
+.faq-section {
+    margin-bottom: 2em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #eee;
+}
+
+.faq-section:last-of-type {
+    border-bottom: none;
+}
+
+.faq-section h3 {
+    color: #0066cc;
+    margin-bottom: 1em;
+    font-size: 1.2em;
+}
+
+.faq-item {
+    margin-bottom: 1.5em;
+}
+
+.faq-item h4 {
+    margin-bottom: 0.5em;
+    color: #333;
+    font-size: 1em;
+}
+
+.faq-item p {
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Contact styles */
+.contact-info {
+    background: #f8f9fa;
+    padding: 1.5em;
+    border-radius: 8px;
+    margin-bottom: 2em;
+}
+
+.contact-info h3 {
+    margin-bottom: 0.5em;
+    color: #333;
+}
+
+.contact-info p {
+    margin: 0;
+}
+
+.contact-form-section {
+    margin-top: 2em;
+}
+
+.contact-form-section h3 {
+    margin-bottom: 1em;
+    color: #333;
+}
+
+/* Page navigation */
+.page-links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2em;
+    padding-top: 1.5em;
+    border-top: 1px solid #eee;
+}
+
+.page-links a {
+    color: #0066cc;
+}
+
+.page-links a:hover {
+    text-decoration: underline;
+}
+
