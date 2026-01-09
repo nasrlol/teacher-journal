@@ -12,6 +12,10 @@
 <div class="auth-container">
     <h1>Login</h1>
 
+    @if(session('success'))
+        <div class="success">{{ session('success') }}</div>
+    @endif
+
     @if($errors->any())
         <div class="error">
             @foreach($errors->all() as $error)
@@ -26,7 +30,7 @@
         <input type="email" id="email" name="email" value="{{ old('email') }}" required>
 
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" name="password" required minlength="8">
 
         <div class="remember-me">
             <input type="checkbox" id="remember" name="remember" value="1">
@@ -36,6 +40,7 @@
         <button type="submit">Login</button>
     </form>
 
+    <p><a href="{{ route('password.request') }}">Forgot your password?</a></p>
     <p>Don't have an account? <a href="{{ route('register') }}">Register</a></p>
     <p><a href="{{ route('faq') }}">FAQ</a> | <a href="{{ route('contact') }}">Contact</a></p>
 </div>
