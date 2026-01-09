@@ -1,0 +1,67 @@
+/* Groups pages styles */
+
+.groups-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5em;
+}
+
+/* Group card */
+.group-card {
+    background: white;
+    padding: 1.5em;
+    border-radius: 8px;
+    margin-bottom: 1em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.group-info {
+    margin: 1em 0;
+}
+
+/* Statistics */
+.group-stats {
+    display: flex;
+    gap: 2em;
+    margin: 1.5em 0;
+    padding: 1em;
+    background: #f8f8f8;
+    border-radius: 4px;
+}
+
+.group-stats li {
+    list-style: none;
+    text-align: center;
+}
+
+.group-stats .count {
+    font-size: 1.5em;
+    font-weight: bold;
+    display: block;
+}
+
+/* Sections */
+.group-section {
+    margin-top: 2em;
+}
+
+.group-section h2 {
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid #eee;
+}
+
+/* Student/SubGroup items */
+.group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75em 0;
+    border-bottom: 1px solid #eee;
+}
+
+.group-item:last-child {
+    border-bottom: none;
+}
+
