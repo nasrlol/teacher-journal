@@ -6,22 +6,37 @@ use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class TeacherController extends Controller
 {
     /**
      * Display a listing of teachers.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): View|JsonResponse
     {
         $teachers = Teacher::with('groups')->get();
-        return response()->json($teachers);
+
+        if ($request->expectsJson()) {
+            return response()->json($teachers);
+        }
+
+        return view('teachers.index', compact('teachers'));
+    }
+
+    /**
+     * Show the form for creating a new teacher.
+     */
+    public function create(): View
+    {
+        return view('teachers.create');
     }
 
     /**
      * Store a newly created teacher.
      */
-    public function store(Request $request): JsonResponse
+    public function store(Request $request): JsonResponse|RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -34,47 +49,73 @@ class TeacherController extends Controller
 
         $teacher = Teacher::create($validated);
 
-        return response()->json($teacher, 201);
+        if ($request->expectsJson()) {
+            return response()->json($teacher, 201);
+        }
+
+        return redirect()->route('teachers.index')->with('success', 'Teacher created successfully.');
     }
 
     /**
      * Display the specified teacher.
      */
-    public function show(Teacher $teacher): JsonResponse
+    public function show(Request $request, Teacher $teacher): View|JsonResponse
     {
-        return response()->json($teacher->load(['groups', 'lessons']));
+        $teacher->load(['groups', 'lessons']);
+
+        if ($request->expectsJson()) {
+            return response()->json($teacher);
+        }
+
+        return view('teachers.show', compact('teacher'));
+    }
+
+    /**
+     * Show the form for editing the specified teacher.
+     */
+    public function edit(Teacher $teacher): View
+    {
+        return view('teachers.edit', compact('teacher'));
     }
 
     /**
      * Update the specified teacher.
      */
-    public function update(Request $request, Teacher $teacher): JsonResponse
+    public function update(Request $request, Teacher $teacher): JsonResponse|RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',
             'last_name' => 'sometimes|required|string|max:255',
             'email' => 'sometimes|required|email|unique:teachers,email,' . $teacher->id,
-            'password' => 'sometimes|required|string|min:8',
+            'password' => 'nullable|string|min:8',
         ]);
 
-        if (isset($validated['password'])) {
+        if (!empty($validated['password'])) {
             $validated['password'] = Hash::make($validated['password']);
+        } else {
+            unset($validated['password']);
         }
 
         $teacher->update($validated);
 
-        return response()->json($teacher);
+        if ($request->expectsJson()) {
+            return response()->json($teacher);
+        }
+
+        return redirect()->route('teachers.index')->with('success', 'Teacher updated successfully.');
     }
 
     /**
      * Remove the specified teacher.
      */
-    public function destroy(Teacher $teacher): JsonResponse
+    public function destroy(Request $request, Teacher $teacher): JsonResponse|RedirectResponse
     {
         $teacher->delete();
 
-        return response()->json(null, 204);
+        if ($request->expectsJson()) {
+            return response()->json(null, 204);
+        }
+
+        return redirect()->route('teachers.index')->with('success', 'Teacher deleted successfully.');
     }
-
 }
-
