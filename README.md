@@ -1,13 +1,13 @@
 # Teacher’s Journal – Laravel Project
 
-## Projectbeschrijving
-Teacher’s Journal is een Laravel-applicatie voor het beheren van leerkrachten, klassen, studenten, lessen en activiteiten.  
-De applicatie ondersteunt authenticatie, beveiligde routes via middleware en CRUD-functionaliteit met resource controllers.  
-Er is zowel een webinterface als een API-achtige backend voorzien.
+## Project description
+Teacher’s Journal is a Laravel application for managing teachers, classes, students, lessons and activities.  
+The application supports authentication, protected routes via middleware, and CRUD functionality with resource controllers.  
+It provides both a web interface and an API-style backend.
 
 ---
 
-## Installatie
+## Installation
 
 ```bash
 git clone <repository-url>
@@ -19,39 +19,39 @@ php artisan migrate
 npm install
 npm run build
 php artisan serve
-````
+```
 
-Applicatie beschikbaar op: `http://127.0.0.1:8000`
+The application is available at: `http://127.0.0.1:8000`
 
 ---
 
 ## Routes
 
-### public roures
+### Public routes
 
 ```
 GET    /                          → Home
-GET    /login                     → Login pagina
+GET    /login                     → Login page
 POST   /login                     → Login
-GET    /register                  → Registratie pagina
-POST   /register                  → Registratie
+GET    /register                  → Registration page
+POST   /register                  → Registration
 
-GET    /forgot-password           → Wachtwoord vergeten
-POST   /forgot-password           → Reset-link verzenden
-GET    /reset-password/{token}    → Reset formulier
-POST   /reset-password            → Wachtwoord resetten
+GET    /forgot-password           → Forgot password
+POST   /forgot-password           → Send reset link
+GET    /reset-password/{token}    → Reset form
+POST   /reset-password            → Reset password
 
 GET    /faq                       → FAQ
-GET    /contact                   → Contact pagina
-POST   /contact                   → Contactformulier verzenden
+GET    /contact                   → Contact page
+POST   /contact                   → Submit contact form
 ```
 
-### Protected Routes 
+### Protected routes
 
 ```
 POST   /logout                    → Logout
 GET    /dashboard                 → Dashboard
-GET    /app                       → Applicatiepagina
+GET    /app                       → Application page
 
 Resource routes:
 GET|POST|PUT|DELETE
@@ -77,7 +77,7 @@ POST   /activities/{activity}/record-score
 GET    /activities/{activity}/students
 ```
 
-### API-routes 
+### API routes
 
 ```
 POST   /login
@@ -140,13 +140,13 @@ GET    /activities/{activity}/students
 
 ---
 
-## Bronnen
+## Sources
 
-* Laravel officiële documentatie:
+* Official Laravel documentation:
   [https://laravel.com/docs/12.x](https://laravel.com/docs/12.x)
-* PHP documentatie:
+* PHP documentation:
   [https://www.php.net/docs.php](https://www.php.net/docs.php)
-* REST API principes:
+* REST API principles:
   [https://restfulapi.net/](https://restfulapi.net/)
 
 ---
